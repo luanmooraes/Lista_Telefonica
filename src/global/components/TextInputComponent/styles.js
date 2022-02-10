@@ -20,5 +20,6 @@ export const TitleText = styled.Text`
     color: blueviolet;
     font-size: 12px;
     margin-bottom: 4px;
-    margin-left: 10px;
+    margin-left: 10px; 
+    
 `;

@@ -1,4 +1,4 @@
-import styled from "styled-components/native";
+import styled from "styled-components";
 
 export const Container = styled.View`
     flex: 1;
@@ -34,4 +34,24 @@ export const TextRegister = styled.Text`
     font-size: 24px;
     font-weight: bold;
     color: blueviolet;
+`;
+
+export const TextInputComponent = styled.View`
+    width: 100%;
+    height: 40px;
+    border-width: 2px;
+    border-color: blueviolet;
+    padding: 10px;
+    justify-content: center;
+    margin: 3px 0px 3px 0px;
+`;
+
+export const ButtonDate = styled.TouchableOpacity`
+    width: 100%;
+    height: 40px;
+    border-width: 2px;
+    border-color: blueviolet;
+    
+    justify-content: center;
+    margin: 3px 0px 3px 0px;
 `;
