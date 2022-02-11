@@ -15,8 +15,8 @@ const ContactCard = (props) => {
     const {name, phone, onPress} = props
     
     return (
-        <Container onPress={onPress}>
-            <Wrapper>
+        <Container>
+            <Wrapper onPress={onPress}>
                 <PersonsName>{name}</PersonsName>
                 <PersonsPhone>{phone}</PersonsPhone>
             </Wrapper>

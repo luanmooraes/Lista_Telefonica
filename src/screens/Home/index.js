@@ -38,6 +38,7 @@ const Home = (props) => {
     const onPressDelete = async(id) => {
         const response = await api.delete(`/api/Contato/${token}/${id}`)
         console.log('Delete')
+        loadUsers()
     }
     
     return (
