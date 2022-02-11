@@ -12,6 +12,13 @@ export const Text = styled.Text`
 `;
 
 export const WrapperFlatlist = styled.View`
-    height: 500px;
+    height: 450px;
     width: 100%;
+`;
+
+export const IconView = styled.TouchableOpacity`
+    
+    position: absolute;
+    top: 480px;
+    left: 320px;
 `;
