@@ -8,4 +8,10 @@ export const Container = styled.View`
 export const Text = styled.Text`
     font-size: 20px;
     font-weight: bold;
+    color: blueviolet;
+`;
+
+export const WrapperFlatlist = styled.View`
+    height: 500px;
+    width: 100%;
 `;

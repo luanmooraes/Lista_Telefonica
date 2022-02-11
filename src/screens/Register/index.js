@@ -6,15 +6,16 @@ import SpaceView from '../../global/components/SpaceView';
 import ButtonComponent from '../../global/components/ButtonComponent';
 import Checkbox from 'expo-checkbox';
 import { TextInput } from 'react-native'
+import { useNavigation } from '@react-navigation/native';
 
 const Register = (props) => {
-  const { } = props;
+  const navigation = useNavigation();
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [dataNascimento, setDataNascimento] = useState('');
   const [isChecked, setChecked] = useState(false);
-
+  const token = '7df05376-90db-4235-9883-ce6cf4ec9565'
   const onChangeName = (text) => {
     setName(text)
   }
@@ -32,6 +33,7 @@ const Register = (props) => {
   }
 
   const onPressRegister = async () => {
+    
     const response = await api.post(`/api/Contato/${token}`, {
       nome: name,
       telefone: phone,
