@@ -7,19 +7,23 @@ import ButtonComponent from '../../global/components/ButtonComponent';
 import Checkbox from 'expo-checkbox';
 import { TextInput } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
+import { format, parse } from 'date-fns';
 
 const Register = (props) => {
   const navigation = useNavigation();
+  
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [dataNascimento, setDataNascimento] = useState('');
   const [isChecked, setChecked] = useState(false);
-  const token = '7df05376-90db-4235-9883-ce6cf4ec9565'
+  
+  
+  
   const onChangeName = (text) => {
     setName(text)
   }
-
+  
   const onChangePhone = (text) => {
     setPhone(text)
   }
@@ -33,15 +37,16 @@ const Register = (props) => {
   }
 
   const onPressRegister = async () => {
-    
+    const dataFormatada = format(parse(dataNascimento, "dd/MM/yyyy", new Date()), 'yyyy-MM-dd').toString();
+    console.log(dataFormatada)
     const response = await api.post(`/api/Contato/${token}`, {
       nome: name,
       telefone: phone,
       email: email,
-      ativo: false,
-      dataNascimento: dataNascimento
+      ativo: isChecked,
+      dataNascimento: dataFormatada
     })
-    console.log(response.data)
+    navigation.navigate('Home')
   }
 
   return (
