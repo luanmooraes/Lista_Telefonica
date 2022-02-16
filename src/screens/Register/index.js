@@ -38,7 +38,7 @@ const Register = (props) => {
 
   const onPressRegister = async () => {
     const dataFormatada = format(parse(dataNascimento, "dd/MM/yyyy", new Date()), 'yyyy-MM-dd').toString();
-    console.log(dataFormatada)
+    
     const response = await api.post(`/api/Contato/${token}`, {
       nome: name,
       telefone: phone,

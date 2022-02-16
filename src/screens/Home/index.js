@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { Button, FlatList } from 'react-native';
+import { Button, FlatList, View, TouchableOpacity } from 'react-native';
 import api from '../../services/api';
 import ContactCard from '../../global/components/ContactCard';
 import SpaceView from '../../global/components/SpaceView';
@@ -9,16 +9,19 @@ import { token } from '../../global/helpers/constants';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import Loading from '../../global/components/Loading';
+import { List, Card, Avatar, IconButton, Divider } from 'react-native-paper';
 
-
+let listFromServer = []
 
 const Home = (props) => {
     const { } = props;
-    const navigation = useNavigation();
+    
     const [list, setList] = useState([]);
-    const token = '7df05376-90db-4235-9883-ce6cf4ec9565';
     const [isLoading, setLoading] = useState(true);
-    const [refreshing, setRefreshing]=useState(false);
+    const [refreshing, setRefreshing] = useState(false);
+    
+    const navigation = useNavigation();
+
     useEffect(() => {
         loadUsers()
     }, []);
@@ -26,42 +29,59 @@ const Home = (props) => {
     const loadUsers = async () => {
         setLoading(true)
         const response = await api.get(`/api/Contato/${token}`);
-        setList(response.data) 
+        setList(response.data);
         setLoading(false)
-        console.log(response.data)
     }
 
-    const onPressHandleRegister = () => {
+
+    const onPressRegister = () => {
         navigation.navigate('Register')
     }
 
-    const onPressDelete = async(id) => {
+    const onPressDelete = async (id) => {
         const response = await api.delete(`/api/Contato/${token}/${id}`)
-        console.log('Delete')
         loadUsers()
     }
-    
+
+    const onPressCallProgress = async (idChave) => {
+        const response = await api.post(`/api/Telefone/${token}`, {
+            idContato: idChave
+        })
+        let newList = response.data;
+        navigation.navigate('CallProgress', {newList})
+    }
+
+    const onPressShowContact = () => {
+        navigation.navigate('ShowContact')
+    }
+
     return (
         <Container>
-            <Loading isVisible={isLoading} bgColor={'white'}/>
-            <SpaceView vertical={20}/>
+            <Loading isVisible={isLoading} bgColor={'white'} />
+            <SpaceView vertical={20} />
             <Text>Lista de Contatos</Text>
-            <SpaceView vertical={30}/>
+            <SpaceView vertical={30} />
             <WrapperFlatlist>
                 <FlatList
                     data={list}
                     keyExtractor={item => item.id}
-                    renderItem={({item}) => 
-                        <ContactCard name={item.nome} phone={item.telefone} onPress={() => {onPressDelete(item.id)}} />
+                    renderItem={({ item }) =>
+                        <TouchableOpacity onPress={()=>{onPressShowContact(item.id)}}>
+                            <Card.Title
+                                title={item.nome}
+                                subtitle={item.telefone}
+                                left={(props) => <Avatar.Icon {...props} icon="account-circle"/>}
+                                right={(props) => <IconButton {...props} icon="phone" onPress={() => {(onPressCallProgress(item.id))}} />}
+                            />
+                        </TouchableOpacity>
                     }
-                    ItemSeparatorComponent={() => <SpaceView vertical={6}/>}
+                    ItemSeparatorComponent={() => <Divider />}
                     refreshing={refreshing}
                     onRefresh={loadUsers}
                 />
-            <IconView onPress={onPressHandleRegister}>
-                <Ionicons name="add-circle" size={80} color="blueviolet" />
-            </IconView>
-            
+                <IconView onPress={onPressRegister}>
+                    <Ionicons name="add-circle" size={80} color="blueviolet" />
+                </IconView>
             </WrapperFlatlist>
         </Container>
     )

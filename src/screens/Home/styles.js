@@ -13,7 +13,7 @@ export const Text = styled.Text`
 `;
 
 export const WrapperFlatlist = styled.View`
-    height: 450px;
+    height: 550px;
     width: 100%;
 `;
 
