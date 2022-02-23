@@ -6,7 +6,8 @@ export const Container = styled.View`
     background-color: white;
 `;
 
-export const WrapperFlatlist = styled.View`
+export const Wrapper = styled.View`
     height: 400px;
     width: 100%;
+    padding: 20px;
 `;

@@ -9,7 +9,7 @@ export const Container = styled.View`
 export const Text = styled.Text`
     font-size: 20px;
     font-weight: bold;
-    color: blueviolet;
+    color: green;
 `;
 
 export const WrapperFlatlist = styled.View`
@@ -20,6 +20,6 @@ export const WrapperFlatlist = styled.View`
 export const IconView = styled.TouchableOpacity`
     width: 100%;
     position: absolute;
-    top: 480px;
+    top: 400px;
     align-items: flex-end;
 `;

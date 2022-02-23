@@ -1,17 +1,20 @@
 import React from 'react';
-import {Container,ContainerTextInput, TitleText} from './styles'
+import { TextInput } from 'react-native-paper';
+import { Container, ContainerTextInput, TitleText } from './styles'
 
 const TextInputComponent = (props) => {
     const { placeholder, value, title, onChangeText } = props;
-    
+
     return (
         <Container>
-            <TitleText>{title}</TitleText>
-            <ContainerTextInput
-                placeholder={placeholder}
+            <TextInput
+                label='NOME'
+                placeholder="ex: Maria"
                 value={value}
-                onChangeText={() => onChangeText()}
+                onChangeText={(text) => onChangeText(text)}
+                
             />
+            <ErrorText></ErrorText>
         </Container>
     )
 }

@@ -1,8 +1,8 @@
-import styled from "styled-components";
+import styled from "styled-components/native";
 
-export const Container = styled.View`
+export const Container = styled.KeyboardAvoidingView`
     flex: 1;
-    padding: 24px 12px 0px 12px;
+    padding: 12px 12px 0px 12px;
     align-items: center;
     justify-content: center;
 `;
@@ -27,7 +27,7 @@ export const Phone = styled.TextInput`
     border-color: blueviolet; 
     width: 100%;
     height: 50px;
-    padding: 10px;
+    padding: 10px; 
 `;
 
 export const TextRegister = styled.Text`
@@ -54,4 +54,11 @@ export const ButtonDate = styled.TouchableOpacity`
     
     justify-content: center;
     margin: 3px 0px 3px 0px;
+`;
+
+export const DateView = styled.View`
+`;
+
+export const TextInputView = styled.View`
+    height: 80px;
 `;

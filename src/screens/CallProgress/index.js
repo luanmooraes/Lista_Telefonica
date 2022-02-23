@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Modal, TextInput } from 'react-native-paper';
+import { Button, Modal, TextInput, Avatar, Subheading } from 'react-native-paper';
 import { Container } from './styles';
 import { FontAwesome } from '@expo/vector-icons';
 import SpaceView from '../../global/components/SpaceView';
@@ -12,6 +12,7 @@ const CallProgress = (props) => {
     const { newList } = props.route.params
     const [visible, setVisible] = useState(false);
     const [writtenText, setWrittenText] = useState('');
+    
     const onChangeText = (text) => {
         setWrittenText(text)
     }
@@ -19,7 +20,6 @@ const CallProgress = (props) => {
     useEffect(() => {
         const loadContact = async(ID) => {
             const response = await api.get(`/api/Telefone/${token}/${ID}`)
-            console.log(response.data)
         }
         loadContact(newList.id)
     }, [])
@@ -28,16 +28,31 @@ const CallProgress = (props) => {
         const response = await api.put(`/api/Telefone/${token}/${id}`, {
             assunto: writtenText
         })
+        
         navigation.navigate('Home')
-        console.log('Ligação encerrada')
+        
     }
 
-    const showModal = () => setVisible(true);
-    const hideModal = () => setVisible(false);
-    const containerStyle = { backgroundColor: 'white', padding: 20, width: '100%', height: 300 };
+    const showModal = () => {
+        setVisible(true);
+    }
+
+    const hideModal = () => {
+        setVisible(false);
+    }
+    
+    const containerStyle = { 
+        backgroundColor: 'white', 
+        padding: 20, 
+        width: '100%', 
+        height: 300 
+    };
 
     return (
         <Container>
+            <Avatar.Icon {...props} icon="account" size={200} color='white' style={{backgroundColor: 'gray'}}/>
+            <SpaceView vertical={20}/>
+            <Subheading>00:37 min</Subheading>
             <Button mode='outlined' style={{ marginTop: 30 }} onPress={showModal}>
                 Mostrar Informações de Chamada
             </Button>

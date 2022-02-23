@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { Button, FlatList, View, TouchableOpacity } from 'react-native';
+import { Button, FlatList, View, TouchableOpacity, Linking } from 'react-native';
 import api from '../../services/api';
 import ContactCard from '../../global/components/ContactCard';
 import SpaceView from '../../global/components/SpaceView';
@@ -11,15 +11,14 @@ import { useNavigation } from '@react-navigation/native';
 import Loading from '../../global/components/Loading';
 import { List, Card, Avatar, IconButton, Divider } from 'react-native-paper';
 
-let listFromServer = []
 
 const Home = (props) => {
     const { } = props;
-    
+
     const [list, setList] = useState([]);
     const [isLoading, setLoading] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
-    
+
     const navigation = useNavigation();
 
     useEffect(() => {
@@ -33,14 +32,8 @@ const Home = (props) => {
         setLoading(false)
     }
 
-
     const onPressRegister = () => {
         navigation.navigate('Register')
-    }
-
-    const onPressDelete = async (id) => {
-        const response = await api.delete(`/api/Contato/${token}/${id}`)
-        loadUsers()
     }
 
     const onPressCallProgress = async (idChave) => {
@@ -48,11 +41,15 @@ const Home = (props) => {
             idContato: idChave
         })
         let newList = response.data;
-        navigation.navigate('CallProgress', {newList})
+        console.log(newList)
+        
+        Linking.openURL(`tel:999999999`)
+       navigation.navigate('CallProgress', { newList })
     }
 
-    const onPressShowContact = () => {
-        navigation.navigate('ShowContact')
+    const onPressShowCalls = (idContact) => {
+        const ID = idContact;
+        navigation.navigate('ShowContact', { ID })
     }
 
     return (
@@ -66,12 +63,12 @@ const Home = (props) => {
                     data={list}
                     keyExtractor={item => item.id}
                     renderItem={({ item }) =>
-                        <TouchableOpacity onPress={()=>{onPressShowContact(item.id)}}>
+                        <TouchableOpacity onPress={() => { onPressShowCalls(item.id) }}>
                             <Card.Title
                                 title={item.nome}
                                 subtitle={item.telefone}
-                                left={(props) => <Avatar.Icon {...props} icon="account-circle"/>}
-                                right={(props) => <IconButton {...props} icon="phone" onPress={() => {(onPressCallProgress(item.id))}} />}
+                                left={(props) => <Avatar.Icon {...props} icon="account" color='white' style={{backgroundColor: 'gray'}}/>}
+                                right={(props) => <IconButton {...props} icon="phone" color='green' onPress={() => { (onPressCallProgress(item.id)) }} />}
                             />
                         </TouchableOpacity>
                     }
@@ -80,7 +77,7 @@ const Home = (props) => {
                     onRefresh={loadUsers}
                 />
                 <IconView onPress={onPressRegister}>
-                    <Ionicons name="add-circle" size={80} color="blueviolet" />
+                    <Ionicons name="add-circle" size={80} color="green" />
                 </IconView>
             </WrapperFlatlist>
         </Container>

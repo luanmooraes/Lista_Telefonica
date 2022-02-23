@@ -7,7 +7,7 @@ const Loading = (props) => {
 		bgColor = 'transparent',
 		isVisible = false,
 		size = 'large',
-		color = 'blueviolet'
+		color = 'green'
 	} = props
 
 	return (
